@@ -3,7 +3,7 @@ clc; clear; close all
 % Checks the validity of all tabulated v(r;alpha,d) .mat-files, by plotting
 % the v(r;alpha,d) curve against 'r' and comparing it to its closed-form
 % convergent expressions for 'r=0' and 'r->Inf'. The files are located in
-% '.\File Repo'.
+% '/vr_repo'.
 %
 % The expression for v(r;alpha,d) is given by eq. (7) of [1]. One can
 % derive any d-dimensional elliptic symmetric alpha-stable distribution
@@ -46,7 +46,8 @@ fpath=mfilename('fullpath');
 [fpath,~,~] = fileparts(fpath);
 
 for j=1:length(alphaInd)
-    load([fpath,'\vr_repo\vr_alpha=',num2str(alphaInd(j)),'.mat'])
+    %load([fpath,'\vr_repo\vr_alpha=',num2str(alphaInd(j)),'.mat']);
+    load(['vr_alpha=',num2str(alphaInd(j)),'.mat']);
     dimVec=1:size(vJoint,1);
     grid on
     rindLarge=rind(rind>10);
