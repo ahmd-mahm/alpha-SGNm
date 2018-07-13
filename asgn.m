@@ -7,7 +7,7 @@ function X = asgn(alpha,R,n,varargin)
 % on the outline provided in [1].
 %
 % The program computes the required aSG pdfs from the tabulated
-% v(r;alpha,d) .mat files located at "\Tabulated Files\File Repo". The
+% v(r;alpha,d) .mat files located at "/tab_files/vr_repo". The
 % expression for v(r;alpha,d) is given by eq. (7) of [1]. The tabulated
 % files allow generating distributions for 'alpha' in [1.1:0.01:1.98] and
 % 'd' in [1:1:10], where d=length(R). The program employs persistent
@@ -106,9 +106,10 @@ if m~=0
     if ~isequal(alphaPrev,alpha)
         k1=funk1(m:m+1);
         k2=funk2(m:m+1);
-        fpath=mfilename('fullpath');
-        [fpath,~,~] = fileparts(fpath); 
-        load([fpath,'\tab_files\vr_repo\vr_alpha=',num2str(alpha),'.mat']) % Gets the variables: 'vJoint','Nmax','Nmin','res'
+        %fpath=mfilename('fullpath');
+        %[fpath,~,~] = fileparts(fpath); 
+        %load([fpath,'\tab_files\vr_repo\vr_alpha=',num2str(alpha),'.mat']) % Gets the variables: 'vJoint','Nmax','Nmin','res'
+        load(['vr_alpha=',num2str(alpha),'.mat'])
         alphaPrev=alpha;
         step=(log10(Nmax)-log10(Nmin))/res;
         disp('*Loading v(r;alpha,d)*')
