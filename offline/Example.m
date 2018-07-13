@@ -1,4 +1,4 @@
-%We generated 3 aSGN(m) files in '\a1_5__m_8\' as an example. This was done
+%We generated 3 aSGN(m) files in '/a1_5__m_8/' as an example. This was done
 %by
 
 alpha=1.57;
@@ -15,7 +15,7 @@ asgn_write(alpha,Cov,FileSize,NumFiles,fs);
 
 fpath=mfilename('fullpath');
 [fpath,~,~] = fileparts(fpath);
-fpath=[fpath,'\a1_57__m_8\'];
+fpath=[fpath,'/a1_57__m_8/'];
 samps=10000;
 delta=5;
 x = delta*asgn_read(fpath,samps);

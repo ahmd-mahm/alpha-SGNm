@@ -10,7 +10,7 @@ function asgn_write(alpha,Cov,FileSize,NumFiles,fs)
 % The data files are saved in a folder within the 'asgn_write()' root
 % directory, and are titled on the basis of 'alpha' and 'm=length(Cov)-1'.
 % As an example, if alpha=1.57 and m=4, the files are saved in
-% '\a1_57__m_4\' and are labelled as 'asgn_1.bin', 'asgn_2.bin' and so on.
+% '/a1_57__m_4/' and are labelled as 'asgn_1.bin', 'asgn_2.bin' and so on.
 % 'asgn_write()' will produce a warning if the directory already exists
 %
 % 'asgn_write()' is intended to be used once for a set of parameters, after
@@ -101,7 +101,7 @@ disp('===========================')
 disp(['alpha = ',a_str])    % Display 'alpha'.
 disp(['m = ',m_str])        % Displays the order of the aSGN process.
 disp('===========================')
-fpath=[fpath,'\a',a_str(1),'_',a_str(3:end),'__m_',m_str];
+fpath=[fpath,'/a',a_str(1),'_',a_str(3:end),'__m_',m_str];
 
 [~,ex,~]=mkdir(fpath);
 if ~isempty(ex)
@@ -123,9 +123,9 @@ for i=1:NumFiles
         end
         
         if j==1
-            fid = fopen([fpath,'\asgn_',num2str(i),'.bin'],'w');
+            fid = fopen([fpath,'/asgn_',num2str(i),'.bin'],'w');
         else
-            fid = fopen([fpath,'\asgn_',num2str(i),'.bin'],'a');
+            fid = fopen([fpath,'/asgn_',num2str(i),'.bin'],'a');
         end
         fwrite(fid, noise,'double');
         fclose(fid);
