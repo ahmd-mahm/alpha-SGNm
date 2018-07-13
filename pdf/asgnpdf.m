@@ -11,7 +11,7 @@ function logf_XN = asgnpdf(X,alpha,R)
 % interpolation between sampled points in vJoint(r;alpha,d).
 %
 % The program computes the required pdf from the tabulated v(r;alpha,d)
-% .mat files located at "..\Tabulated Files\File Repo". The expression for
+% .mat files located at "../tab_files/vr_repo". The expression for
 % v(r;alpha,d) is given by eq. (7) of [1]. The tabulated files allow
 % generating distributions for 'alpha' in [1.1:0.01:1.98] and 'd' in
 % [1:1:10], where d=length(R). The program employs persistent variables and
@@ -72,9 +72,10 @@ if ~isequal(RPrev,R) || ~isequal(alphaPrev,alpha) || ~isequal(NPrev,N)
         disp('*Change in R -- Evaluating inverses and determinants*')
     end
     if ~isequal(alphaPrev,alpha)
-        fpath=mfilename('fullpath');
-        [fpath,~,~] = fileparts(fpath);
-        load([fpath,'\..\tab_files\vr_repo\vr_alpha=',num2str(alpha),'.mat']);
+        %fpath=mfilename('fullpath');
+        %[fpath,~,~] = fileparts(fpath);
+        %load([fpath,'/../tab_files/vr_repo/vr_alpha=',num2str(alpha),'.mat']);
+        load(['vr_alpha=',num2str(alpha),'.mat']);
         disp('*Loading v(r;alpha,d)*')
     end
     if m>size(vJoint,1)-1

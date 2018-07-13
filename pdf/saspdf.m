@@ -7,7 +7,7 @@ function f_X=saspdf(X,alpha,delta)
 % outcome 'X(i,j)'
 %
 % The program computes the required SaS pdf from the tabulated v(r;alpha,d)
-% .mat files located at "..\Tabulated Files\File Repo". The expression for
+% .mat files located at "../tab_files/vr_repo". The expression for
 % v(r;alpha,d) is given by eq. (7) of [1]. The tabulated files allow
 % generating distributions for 'alpha' in [1.1:0.01:1.98]. The program
 % employs persistent variables and spline interpolation between sampled
@@ -39,9 +39,10 @@ function f_X=saspdf(X,alpha,delta)
 persistent vJoint k1 k2 Nmin Nmax rind alphaPrev pp
 
 if  ~isequal(alphaPrev,alpha)
-    fpath=mfilename('fullpath');
-    [fpath,~,~] = fileparts(fpath);
-    load([fpath,'\..\tab_files\vr_repo\vr_alpha=',num2str(alpha),'.mat']);
+    %fpath=mfilename('fullpath');
+    %[fpath,~,~] = fileparts(fpath);
+    %load([fpath,'/../tab_files/vr_repo/vr_alpha=',num2str(alpha),'.mat']);
+    load(['vr_alpha=',num2str(alpha),'.mat']);
     alphaPrev=alpha;
     k1=(2^alpha)*sin(pi*alpha/2)*gamma((alpha+2)/2)*gamma((alpha+1)/2)./(gamma(1/2)*(pi*alpha)/2);
     k2=4*gamma(1/alpha)/(alpha*2*((gamma(1/2)).^2));
