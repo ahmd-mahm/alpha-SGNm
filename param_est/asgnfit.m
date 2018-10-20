@@ -7,14 +7,14 @@ function [alpha, delta, Cov] = asgnfit(X,m,varargin)
 % This function trains the aSGN(m) model to the data vector 'X'. It
 % evaluates the characteristic exponent 'alpha' and the scale 'delta' via
 % McCulloch's method using 'sstabfit()'. The underlying normalized
-% covariance matrix 'Cov' can be evaluated via either least-squares (LS) or
-% the covariation method. In both cases the dimension of 'Cov' is  m x m.
+% covariance matrix 'Cov' can be estimated via the sample covariance method or
+% the covariation method. In both cases the dimension of 'Cov' is  m+1 x m+1.
 % Revert to [1] for details on these methods.
 %
-% The default method to evaluate 'Cov' is that of LS. This offers an
-% effective estimate of 'Cov' which is guaranteed to be positive
-% semi-definite. Call the function as 'asgnfit(X,m)' to tune the model via
-% the LS method.
+% The default method to evaluate 'Cov' is the sample covariance matrix.
+% This offers an effective estimate of 'Cov' which is guaranteed to be
+% positive semi-definite. Call the function as 'asgnfit(X,m)' to tune the
+% model via the sample covariance method.
 % 
 % The covariation method requires an additional parameter 'p'. Ideally, 1 <
 % p < alpha. In most practical impulsive scenarios p=1 is sufficient. Call
@@ -22,7 +22,6 @@ function [alpha, delta, Cov] = asgnfit(X,m,varargin)
 % covariation method. This does not always guarantee a positive definite
 % 'Cov' but offers a robust estimate. For larger 'm', we have observed this
 % method to increasingly produce non-positive definite estimates.
-%
 %
 % If the actual covariance matrix of 'X' is required, it can be obtained as
 % (delta^2)*Cov in the main program.
