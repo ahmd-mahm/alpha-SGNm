@@ -29,7 +29,6 @@ function logf_XN = asgnpdf(X,alpha,R)
 %        matrix. The maximum acceptable size of 'R' is 10x10.
 %
 % ******** Output *********
-
 % logf_XN  :The 1 x L vector, such that 'f_XN(1,i)' is the (natural log) of
 %           the N-dimensional pdf at 'X(:,i)', where the latter is assumed
 %           to be an outcome of 'N' immediately adjacent samples of an

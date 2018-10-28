@@ -1,4 +1,4 @@
-function X = asgn(alpha,R,n,varargin)
+function [X,I] = asgn(alpha,R,n,varargin)
 
 % Creates random variates for aSGN(m) from the acceptance-rejection method.
 % For the latter, a Student's t pdf is employed as a majorizing function
@@ -29,6 +29,13 @@ function X = asgn(alpha,R,n,varargin)
 % init_samples: An optional argument, which forces the first 'm' samples of
 %               the noise process to 'init_samples'. The length
 %               of the vector should be equal to 'm'.
+%
+% ******** Output *********
+% X:    The 1 x n vector of aSGN(m) samples
+%
+% I:    The innovation (driving) samples of the corresponding white noise
+%       process. For the alpha=1, these are IID samples stemming from a
+%       t-distribution with degrees-of-freedom m+1 and scale=1.
 %
 %---------------------------------------
 %
@@ -133,11 +140,13 @@ if m~=0
             T= chi2rnd(m);
             S=randn(m,1);
             S=S/sqrt(sum(S.^2));
-            X=(SigRootX1*sqrt(A*T)*S).';
+            X=(SigRootX1*sqrt(A*T)*S).'; % from pg. 4, of "Multivariate elliptically contoured stable
+                                         % distributions: theory and estimation" by J. P. Nolan
         end
         X=X(1:n);
     else
         X = zeros(1,n); % Preallocate m
+        I=zeros(1,n);
         if length(varargin)==1
             if length(varargin{1})==m
                 X(1:m)=varargin{1};
@@ -165,13 +174,15 @@ if m~=0
             while accept == false
                 
                 u = rand();
-                v=(norms/norm1)*trnd(vstud,1,1)+mode;
+                t_innov=trnd(vstud,1,1);
+                v=(norms/norm1)*t_innov+mode;
                 g_v=(norm1/norms)*tpdf((v-mode)*(norm1/norms),vstud);
                 f_v=SubGaussCondProbTabulate(alpha,X1,v,InvRX1,InvR,vJoint,Nmin,Nmax,step,rind,kappa,k1,k2,kmarg);
                 
                 %f_v=SubGaussCondProb(alpha,R,X1,v);
                 if c*u <= f_v/g_v
                     X(i) = v;
+                    I(i) = t_innov;
                     accept = true;
                 end
                 %      k=k+1;
